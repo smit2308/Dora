@@ -31,9 +31,9 @@ const Home = () => {
         </h1>
         <Link to='/create-post' >
           <Button 
-            fontSize={"text-2xl"}
-            px={"px-10"}
-            py={"py-3"}
+            fontSize={"text-2xl font-light"}
+            px={"px-20"}
+            py={"py-4"}
             label={"Create"} />
         </Link>
       </div>
