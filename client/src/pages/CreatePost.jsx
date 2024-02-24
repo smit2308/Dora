@@ -6,24 +6,7 @@ import {getRandomPrompt} from '../utils'
 import { FormField, Loader, Button } from '../componenets'
 import g from 'file-saver'
 
-const Printer = () =>
-{
-  console.log('printer')
-  return null
 
-}
-
-const handleGenerate = (e) => {
-}
-
-const handleChange = (e) => {
-}
-
-const handleSubmit = (e) => {
-}
-
-const handleSurpriseMe = (e) => {
-}
 
 
 const CreatePost = () => {
@@ -38,6 +21,31 @@ const CreatePost = () => {
   const [generatingImage, setGeneratingImage] = useState(false);
   const [loading, setLoading] = useState(false)
 
+  const Printer = () =>
+{
+  console.log('printer')
+  return null
+
+}
+
+const handleGenerate = (e) => {
+  
+}
+
+const handleChange = (e) => {
+  setForm({ ...form, [e.target.name]: e.target.value })
+
+}
+
+const handleFormSubmit = (e) => {
+}
+
+const handleSurpriseMe = (e) => {
+  e.preventDefault();
+  const randomPrompt = getRandomPrompt()
+  setForm({ ...form, prompt: randomPrompt })
+}
+
 
   return (
     <section className='flex flex-col'>
@@ -48,7 +56,7 @@ const CreatePost = () => {
         Instantly Generate AI Masterpieces from Your Prompts - Share, Inspire, and Amaze!
       </p>
       
-      <form className='max-w-2xl' onSubmit={handleSubmit}>
+      <form className='max-w-2xl' onSubmit={handleFormSubmit}>
 
         <div className='flex flex-col gap-10 mb-10'>
 
@@ -80,9 +88,9 @@ const CreatePost = () => {
           />
 
           <div className='flex relative bg-gray-100 rounded-lg max-w-xl opacity-75 '>
-            {form.photo?
+            {form.image?
               (
-                <img src={form.photo} alt={form.prompt}
+                <img src={form.image} alt={form.prompt}
                 className='w-full h-full object-contain '
                 />
               ):(
@@ -114,6 +122,7 @@ const CreatePost = () => {
               
             />
             <Button
+            type={'submit'}
               label={'Share'}
               color={'bg-green-700'}
               
