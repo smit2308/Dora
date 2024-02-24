@@ -26,7 +26,9 @@ export default {
       fontFamily: {
         'playfair': ['"Playfair Display"', 'serif'],
         'grotesk': ['"Familjen Grotesk"', 'sans-serif'],
+        'inter' : ['Inter', 'sans-serif'],
       },
+
 
       colors: {
         'primary': "#F1F1F1",
