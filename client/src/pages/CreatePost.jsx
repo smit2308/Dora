@@ -28,8 +28,38 @@ const CreatePost = () => {
 
 }
 
-const handleGenerate = (e) => {
-  
+const handleGenerate = async () => {
+  if(form.prompt){
+    try {
+          setGeneratingImage(true);
+          const response = await fetch('http://localhost:8080/api/v1/dalle', 
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({prompt: form.prompt})
+           })
+
+           const data = await response.json();
+            setForm({...form, image: `data:image/jpeg;base64,${data.image}`})
+        }
+
+        
+        catch (error) {
+          alert(error)
+          
+          
+        }
+        finally {
+          setGeneratingImage(false)
+        }
+    
+    }
+
+    else{
+      alert('Please enter a prompt')
+    }
 }
 
 const handleChange = (e) => {
@@ -37,7 +67,38 @@ const handleChange = (e) => {
 
 }
 
-const handleFormSubmit = (e) => {
+const handleFormSubmit = async (e) => {
+
+  e.preventDefault();
+  if(form.prompt && form.image && form.name){
+    setLoading(true)
+    
+    try {
+      const response = await fetch('http://localhost:8080/api/v1/post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form)
+      })
+
+      await response.json()
+      navigate('/')
+    }
+    catch (error) {
+      alert(error)
+
+    }
+    finally {
+      setLoading(false)
+      
+    }
+  }
+  else{
+    alert('Please fill in all fields')
+  }
+  
+
 }
 
 const handleSurpriseMe = (e) => {
@@ -48,7 +109,7 @@ const handleSurpriseMe = (e) => {
 
 
   return (
-    <section className='flex flex-col'>
+    <section className='flex flex-col mt-32'>
       <h1 className=' font-playfair text-6xl font-bold  text-gray-800'>
         Create a new Post
       </h1>
@@ -119,7 +180,7 @@ const handleSurpriseMe = (e) => {
             <Button
               label={'Download'}
               color={'bg-gray-800'}
-              
+              onclick={() => g.saveAs(form.image, `Dora_"${form.prompt}".jpg`)}
             />
             <Button
             type={'submit'}

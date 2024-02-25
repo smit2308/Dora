@@ -2,30 +2,62 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import {Card, Loader, FormField, Button} from '../componenets'
 import { Link } from 'react-router-dom'
+import { dalle, logo } from '../assets'
 
-const RenderPosts = ( {data, title}) => {
-  if(data.length >0){
-    return data.map((post, index) => {
-      <Card key={post_id} {...post}/>
-    })
+const RenderPosts = ({ data, title }) => {
+  if (data.length > 0) {
+    return data.map((post, index) => (
+      <Card key={post.id} {...post}/>
+    ));
+  } else {
+    return (
+      <h2 className='font-bold text-accent text-xl'>
+        {title}
+      </h2>
+    );
   }
-  
-  return(
-    <h2 className='font-bold text-accent text-xl'>
-      {title}
-    </h2>
-  )
-}
+};
 
 const Home = () => {
 
   const [posts, setPosts] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [searchTerm, setSearchTerm] = useState('Hello')
+  const [searchTerm, setSearchTerm] = useState('')
+
+  useEffect(() => { 
+    const fetchPosts = async () => {
+      setLoading(true)
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/post',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+
+        if (response.ok) {
+          
+          const result = await response.json()
+          console.log(result.data, "result data")
+          setPosts(result.data.reverse())
+          
+        }
+
+        
+      } catch (error) {
+        alert(error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchPosts()
+  }, [])
 
   return (
-    <section className='flex flex-col gap-32  '>
-      <div className='max-w-2xl flex flex-col items-center gap-10 py-20 self-center'>
+    <section className='  flex flex-col  max-container items-center  '>
+      <section className=' h-screen flex   ' >
+        <div className='my-auto max-w-2xl flex flex-col items-center gap-10  '>
         <h1 className=' font-playfair text-[120px] text-center leading-[120px] font-bold text-gray-800'>
           Bring Your Ideas to Life
         </h1>
@@ -36,7 +68,20 @@ const Home = () => {
             py={"py-4"}
             label={"Create"} />
         </Link>
-      </div>
+        </div>
+      </section>
+
+      <div className='w-full flex flex-row justify-evenly mb-60  '>
+      <h1 className=' text-2xl max-w-lg'>
+          Using Dall-E AI Model by OpenAI to create realistic images from descriptions
+        </h1>
+        <div className='max-w-md flex flex-col justify-center items-center   p-4 pb-4  rounded-lg '> 
+          <img src={logo} alt="logo" className='w-40 object-cover '/>
+          <img src={dalle} alt="dalle" className='w-80 object-cover invert '/>
+        </div>
+        
+
+       </div> 
 
       <div className='w-full flex flex-col '>
 
@@ -44,12 +89,12 @@ const Home = () => {
           Look what the Community has been upto
         </h1>
         <p className='text-lg mb-20  '>
-          A collection of high quality and imaginitive images created by Dall-E AI
+          A collection of Recent Posts from the Community
         </p>
 
-        <div className='mb-10'>
+        {/* <div className='mb-10'>
           <FormField />
-        </div>
+        </div> */}
 
         <div className='text-xl font-inter'>
           {loading ?
@@ -67,16 +112,16 @@ const Home = () => {
                 </h2>
               )}
 
-              <div className='flex flex-wrap'>
+              <div className='grid grid-cols-3 gap-4'>
                 {searchTerm ?
                 (
                   <RenderPosts
                     data={[]}
-                    title={'NO POSTS FOUND'}
+                    title={'No Search Results Found'}
                     />
                 ):(
                   <RenderPosts
-                    data="allPosts"
+                    data={posts || []}
                     title={'NO POSTS FOUND'}
                     />
                 )}
