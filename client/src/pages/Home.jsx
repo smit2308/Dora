@@ -160,7 +160,7 @@ const Home = () => {
                 </h2>
               )}
 
-              {/* <div className='grid grid-cols-3 gap-4'>
+              <div className='grid grid-cols-3 gap-4'>
                 {searchTerm ?
                 (
                   <RenderPosts
@@ -173,7 +173,7 @@ const Home = () => {
                     title={'NO POSTS FOUND'}
                     />
                 )}
-              </div> */}
+              </div>
             </>
           )}
         </div>

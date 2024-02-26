@@ -86,7 +86,8 @@ const Dropdown = ({ handleClick, name, value, list }) => {
             <h1 className='text-xl font-semibold text-gray-800 mb-10 flex flex-col'>
               {option[0].toUpperCase() + option.slice(1)}
               <span className='text-sm  text-gray-800'>
-                Prompt: "Spongebob Squarepants in India"
+                Prompt: {option == 'model'? "Spongebob squarepants in India" :
+                "Man eating soup on the beach"}
               </span>
             </h1>
 

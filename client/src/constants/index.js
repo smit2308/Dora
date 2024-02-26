@@ -1,4 +1,5 @@
-import { dalle2_natural, dalle2_vivid, dalle3_natural, dalle3_vivid } from '../assets';
+import { dalle2_natural, dalle2_vivid, dalle3_natural, dalle3_vivid,
+  quality_standard, quality_hd, style_natural, style_vivid } from '../assets';
 
 
 export const  links = [
@@ -37,13 +38,13 @@ export const OverlayFeatures = {
       name: 'Standard',
       description: 'Creates images with standard details',
       features : ['Faster', 'Less consistency'],
-      img: dalle3_natural,
+      img: quality_standard,
     },
   
     {name : 'HD',
     description :'Creates images with finer details',
     features: ['Slower', 'greater consistency'],
-    img: dalle3_vivid
+    img: quality_hd
     }
   
   ],
@@ -53,13 +54,13 @@ export const OverlayFeatures = {
       name: 'Natural',
       description: 'Natural causes the model to produce more natural, less hyper-real looking images',
       features : [],
-      img: dalle3_natural,
+      img: style_natural,
     },
   
     {name : 'Vivid',
     description :'Vivid causes the model to lean towards generating hyper-real and dramatic images',
     features: [],
-    img: dalle3_vivid
+    img: style_vivid
     }
   ]
 
