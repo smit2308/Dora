@@ -18,6 +18,8 @@ const CreatePost = () => {
   
   const [generatingImage, setGeneratingImage] = useState(false);
   const [loading, setLoading] = useState(false)
+  const [isdalle3, setIsDalle3] = useState(false)
+
   const navigate = useNavigate()
 
   const [form, setForm] = useState({
@@ -29,6 +31,14 @@ const CreatePost = () => {
     style: style.value,
   })
 
+  useEffect(() => {
+    if(form.model === 'dall-e-3'){
+      setIsDalle3(true)
+    }
+    else{
+      setIsDalle3(false)
+    }
+  }, [form.model])
 
 
 
@@ -182,15 +192,17 @@ const handleDropdown =(parameter, value) => {
             
     
             />
+          {isdalle3 && 
+            (
+              <Dropdown
+              name={"style"}
+              value={form.style}
+              list = {styleOptions}
+              handleClick={handleDropdown}  
+              />
+            )}
 
-          <Dropdown
-            name={"style"}
-            value={form.style}
-            list = {styleOptions}
-            handleClick={handleDropdown}
-            
-    
-            />
+
           </div>
 
           <Button

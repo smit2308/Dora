@@ -4,12 +4,7 @@ import { preview } from '../assets'
 const FormField = ({label, type, name, placeholder, value, 
     handleChange, isSurpriseMe, handleSurpriseMe}) => {
 
-  // label={"Name"}
-  // type={"text"}
-  // name={"name"}
-  // placeholder={"Your Name"}
-  // value={form.name}
-  // handleChange={handleChange}
+
   return (
     <div className='flex flex-col  gap-6'>
       <div className='flex gap-6 items-center'>
