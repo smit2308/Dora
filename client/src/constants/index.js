@@ -1,3 +1,18 @@
+export const  links = [
+  {
+    name: 'Home',
+    path: '/'
+  },
+  {
+    name: 'Community',
+    path: '/community'
+  },
+  {
+    name: 'Create',
+    path: '/create-post'
+  }
+]
+
 export const surpriseMePrompts = [
     'an armchair in the shape of an avocado',
     'a surrealist dream-like oil painting by Salvador Dalí of a cat playing checkers',
@@ -46,3 +61,44 @@ export const surpriseMePrompts = [
     'A man wanders through the rainy streets of Tokyo, with bright neon signs, 50mm',
     'A Space Shuttle flying above Cape Town, digital art',
   ];
+
+  export const modelOptions = [
+
+    {
+
+      value: 'dall-e-2',
+      description: 'This is the default model. It has a smaller image generation capacity and quality'
+    },
+
+    {
+
+      value: 'dall-e-3',
+      description: 'This is the latest model. It has a larger image generation capacity and better quality. Please use wisely as it is expensive for me'
+    }
+  ]
+
+  export const qualityOptions = [ 
+    {
+
+      value: 'standard',
+      description: 'Faster Speed but lower quality'
+    },
+
+    {
+
+      value: 'hd',
+      description: 'Higher quality but slower speed'
+    }
+  ];
+
+  export const styleOptions = [
+    {
+      value: 'vivid',
+      description: 'The image will more hyper-real and dramatic'
+    },
+      
+      {
+        value: 'natural',
+        description: 'The image will be more natural, less hyper-real'
+      } 
+  ]

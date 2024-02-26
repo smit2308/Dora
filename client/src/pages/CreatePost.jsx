@@ -1,25 +1,36 @@
-import React from 'react'
+import React, { version } from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { preview } from '../assets'
 import {getRandomPrompt} from '../utils'
-import { FormField, Loader, Button } from '../componenets'
+import { FormField, Loader, Button, Dropdown } from '../componenets'
 import g from 'file-saver'
-
+import { modelOptions, qualityOptions, styleOptions  } from '../constants'
 
 
 
 const CreatePost = () => {
 
+
+  const [model, setModel] = useState(modelOptions[0])
+  const [quality, setQuality] = useState(qualityOptions[0])
+  const [style, setStyle] = useState(styleOptions[0])
+  
+  const [generatingImage, setGeneratingImage] = useState(false);
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+
   const [form, setForm] = useState({
     name: '',
     prompt: '',
-    image: ''
+    image: '',
+    model: model.value,
+    quality: quality.value,
+    style: style.value,
   })
 
-  const [generatingImage, setGeneratingImage] = useState(false);
-  const [loading, setLoading] = useState(false)
+
+
 
   const Printer = () =>
 {
@@ -29,6 +40,7 @@ const CreatePost = () => {
 }
 
 const handleGenerate = async () => {
+  console.log(form, "form")
   if(form.prompt){
     try {
           setGeneratingImage(true);
@@ -38,7 +50,7 @@ const handleGenerate = async () => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({prompt: form.prompt})
+            body: JSON.stringify({prompt: form.prompt, model: form.model, quality: form.quality, style: form.style})
            })
 
            const data = await response.json();
@@ -62,10 +74,7 @@ const handleGenerate = async () => {
     }
 }
 
-const handleChange = (e) => {
-  setForm({ ...form, [e.target.name]: e.target.value })
 
-}
 
 const handleFormSubmit = async (e) => {
 
@@ -101,11 +110,25 @@ const handleFormSubmit = async (e) => {
 
 }
 
+const handleChange = (e) => {
+  console.log(e.target.value, "target value")
+  setForm({ ...form, [e.target.name]: e.target.value })
+
+}
+
 const handleSurpriseMe = (e) => {
   e.preventDefault();
   const randomPrompt = getRandomPrompt()
   setForm({ ...form, prompt: randomPrompt })
 }
+
+const handleDropdown =(parameter, value) => {
+  
+  setForm({ ...form, [parameter]: value })
+
+}
+
+
 
 
   return (
@@ -140,6 +163,35 @@ const handleSurpriseMe = (e) => {
             isSurpriseMe
             handleSurpriseMe={handleSurpriseMe}
           />
+          
+          <div className='flex flex-row gap-10'>
+          <Dropdown
+            name={"model"}
+            value={form.model}
+            list = {modelOptions}
+            handleClick={handleDropdown}
+            
+    
+            />
+
+          <Dropdown
+            name={"quality"}
+            value={form.quality}
+            list = {qualityOptions}
+            handleClick={handleDropdown}
+            
+    
+            />
+
+          <Dropdown
+            name={"style"}
+            value={form.style}
+            list = {styleOptions}
+            handleClick={handleDropdown}
+            
+    
+            />
+          </div>
 
           <Button
             width={"w-max"}

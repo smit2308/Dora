@@ -1,35 +1,26 @@
 import React from 'react'
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
-import {logo} from './assets'
+import {Dora_logo} from './assets'
 import {Home, CreatePost, Community} from './pages'
 import { Button } from './componenets'
-
+import {links} from './constants' 
 function App() {
 
-const links = [
-  {
-    name: 'Home',
-    path: '/'
-  },
-  {
-    name: 'Community',
-    path: '/community'
-  },
-  {
-    name: 'Create',
-    path: '/create-post'
-  }
-]
+
   return (
     <section className='max-container flex flex-col  items-center '> 
       <BrowserRouter>
         <header className='fixed z-30  backdrop-blur-xl max-container w-full flex flex-row justify-between  items-center
-        px-20 p-6
+        px-20 
           '>
-          <Link to='/'>
-            <img src={logo} alt="logo" 
-            className='w-28 object-contain'
+          <Link to='/' className='flex items-center justify-center  '>
+            <img src={Dora_logo} alt="Dora" 
+            className='w-32 object-contain h-32'
             />
+            <h1 className='h-max w-max text-4xl font-light font-playfair text-gray-800 -ml-2 '>
+              Dora
+            </h1>
+            
           </Link>
 
           <div className='flex flex-row gap-10'>
