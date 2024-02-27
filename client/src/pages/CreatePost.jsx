@@ -142,11 +142,11 @@ const handleDropdown =(parameter, value) => {
 
 
   return (
-    <section className='flex flex-col mt-32'>
-      <h1 className=' font-playfair text-6xl font-bold  text-gray-800'>
-        Create a new Post
+    <section className='w-full flex flex-col max-container  mt-20 md:mt-32'>
+      <h1 className=' font-playfair max-md:leading-[50px] max-md:text-4xl max-md:mb-6 leading-[80px] text-6xl font-bold mb-10  text-gray-800'>
+        Create a new Image
       </h1>
-      <p className='font-inter text-xl text-gray-800 mb-20 '>
+      <p className='text-lg mb-10 max-md:text-md max-md:mb-6'>
         Instantly Generate AI Masterpieces from Your Prompts - Share, Inspire, and Amaze!
       </p>
       
@@ -174,7 +174,7 @@ const handleDropdown =(parameter, value) => {
             handleSurpriseMe={handleSurpriseMe}
           />
           
-          <div className='flex flex-row gap-10'>
+          <div className='flex flex-row gap-10 max-md:flex-col '>
           <Dropdown
             name={"model"}
             value={form.model}
@@ -212,7 +212,7 @@ const handleDropdown =(parameter, value) => {
             handleClick={handleGenerate}
           />
 
-          <div className='flex relative bg-gray-100 rounded-lg max-w-xl opacity-75 '>
+          <div className='flex relative bg-gray-100 rounded-lg max-w-xl  '>
             {form.image?
               (
                 <img src={form.image} alt={form.prompt}
@@ -220,7 +220,7 @@ const handleDropdown =(parameter, value) => {
                 />
               ):(
                 <img src={preview} alt='preview'
-                className='w-full h-full object-contain p-20'
+                className='w-full h-full object-contain p-20 opacity-75'
                 />
               )}
 

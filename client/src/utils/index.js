@@ -1,4 +1,5 @@
 import React from "react";
+import FileSaver from "file-saver";
 import { surpriseMePrompts } from "../constants";
 
 export function getRandomPrompt(prompt) {
@@ -8,4 +9,8 @@ export function getRandomPrompt(prompt) {
         return getRandomPrompt(prompt);
     }
     return randomPrompt;
+}
+
+export async function downloadImage(_id, image) {
+    FileSaver.saveAs(image, `download_${_id}.jpg`);
 }

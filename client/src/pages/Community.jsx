@@ -19,11 +19,15 @@ const RenderPosts = ({ data, title }) => {
 };
 
 
+
+
 const Community = () => {
 
   const [posts, setPosts] = useState(null)
   const [loading, setLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
+  const [searchedResults, setSearchedResults] = useState(null)
+  const [searchTimeout, setSearchTimeout] = useState(null)
 
   useEffect(() => { 
     const fetchPosts = async () => {
@@ -40,7 +44,7 @@ const Community = () => {
         if (response.ok) {
           
           const result = await response.json()
-          console.log(result.data, "result data")
+
           setPosts(result.data.reverse())
           
         }
@@ -55,19 +59,44 @@ const Community = () => {
     fetchPosts()
   }, [])
 
-  return (
-    <div className='w-full flex flex-col max-container mt-32'>
+  const handleSearchChange = (e) => {
+ 
+    setSearchTerm(e.target.value);
+    clearTimeout(searchTimeout);
+    setSearchTimeout(
+      setTimeout(() => {
+  
+        const searchResults = posts.filter((item) => {
+          return (
+            item.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+            item.prompt.toLowerCase().includes(e.target.value.toLowerCase())
+          );
+        });
+        setLoading(false)
 
-    <h1 className='font-playfair text-6xl font-bold  text-gray-800'>
+        setSearchedResults(searchResults);
+      }, 500)
+    );
+  };
+
+  return (
+    <div className='w-full flex flex-col max-container mt-20 md:mt-32'>
+
+    <h1 className='font-playfair leading-[80px] text-6xl max-md:leading-[50px] max-md:text-4xl font-bold  text-gray-800 mb-10 max-md:mb-6'>
       Posts from the Community
     </h1>
-    <p className='text-lg mb-10  '>
+    <p className='text-lg mb-10 max-md:text-md max-md:mb-4 '>
       Take a look at what others are creating and get inspired to create your own
     </p>
 
     <div className='mb-10 max-w-lg '>
       <FormField
-      placeholder={'Search'} />
+   
+      type='text'
+      name="text"
+      placeholder={'Search'}
+      value={searchTerm}
+      handleChange={handleSearchChange} />
     </div>
 
     <div className='text-xl font-inter'>
@@ -79,18 +108,18 @@ const Community = () => {
       ):(
         <>
           {searchTerm && (
-            <h2 className='text-xl mb-20'>
+            <h2 className='text-xl mb-10'>
               Search Results for "<span className='text-accent font-semibold text-xl '>
                 {searchTerm}
               </span>"
             </h2>
           )}
 
-          <div className='grid grid-cols-3 gap-4'>
+          <div className='grid xs:grid-cols-2 lg:grid-cols-3 grid-cols-1  gap-4 '>
             {searchTerm ?
             (
               <RenderPosts
-                data={[]}
+                data={searchedResults || [] && setLoading(true)}
                 title={'No Search Results Found'}
                 />
             ):(

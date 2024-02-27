@@ -14,6 +14,7 @@ import style_natural from './style_natural.jpg';
 import style_vivid from './style_vivid.jpg';
 
 import help from './help.png';
+import external from './external.png';
 
 export {
   download,
@@ -29,5 +30,6 @@ export {
   quality_standard,
   quality_hd,
   style_natural,
-  style_vivid
+  style_vivid,
+  external
 };

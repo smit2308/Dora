@@ -6,12 +6,12 @@ const FormField = ({label, type, name, placeholder, value,
 
 
   return (
-    <div className='flex flex-col  gap-6'>
+    <div className='flex flex-col  gap-6 max-md:gap-4'>
       <div className='flex gap-6 items-center'>
 
       <label
         htmlFor={name}
-        className='font-inter text-lg text-gray-800'
+        className='font-inter text-lg  text-gray-800'
       >
         {label}
       </label>

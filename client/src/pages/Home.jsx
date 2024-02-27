@@ -1,18 +1,28 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import {Card, Loader, FormField, Button} from '../componenets'
+import {Card, Loader, FormField, Button, WavyBackground} from '../componenets'
 import { Link } from 'react-router-dom'
 import { dalle, logo, 
   dalle2_natural, dalle2_vivid, dalle3_natural, dalle3_vivid } from '../assets'
 
 const RenderPosts = ({ data, title }) => {
-  if (data.length > 0) {
-    return data.map((post, index) => (
+  if (data.length > 0 ) {
+    return data.slice(0, 6).map((post, index) => (
       <Card key={post.id} {...post}/>
     ));
+    
+    <Link to={'/community'} >
+    <Button 
+      color={"bg-gray-800"}
+      fontSize={"max-md:text-lg text-xl lg:text-2xl font-light"}
+      px={"max-md:px-10 px-20"}
+      py={" max-md:py-3 py-4"}
+      label={"View More"} />
+  </Link>
+  
   } else {
     return (
-      <h2 className='font-bold text-accent text-xl'>
+      <h2 className='font-bold text-accent text-xl max-md:text-lg'>
         {title}
       </h2>
     );
@@ -29,71 +39,83 @@ const Home = () => {
 
   const [isDalle3, setIsDalle3] = useState(false)
 
-  useEffect(() => { 
-    const fetchPosts = async () => {
-      setLoading(true)
-      try {
-        const response = await fetch('http://localhost:8080/api/v1/post',
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        })
+  // useEffect(() => { 
+  //   const fetchPosts = async () => {
+  //     setLoading(true)
+  //     try {
+  //       const response = await fetch('http://localhost:8080/api/v1/post',
+  //       {
+  //         method: 'GET',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         }
+  //       })
 
-        if (response.ok) {
+  //       if (response.ok) {
           
-          const result = await response.json()
-          console.log(result.data, "result data")
-          setPosts(result.data.reverse())
+  //         const result = await response.json()
+
+  //         setPosts(result.data.reverse())
           
-        }
+  //       }
 
         
-      } catch (error) {
-        alert(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchPosts()
-  }, [])
+  //     } catch (error) {
+  //       alert(error)
+  //     } finally {
+  //       setLoading(false)
+  //     }
+  //   }
+  //   fetchPosts()
+  // }, [])
 
   return (
-    <section className='  flex flex-col  max-container items-center  '>
-      <section className=' h-screen flex   ' >
-        <div className='my-auto max-w-2xl flex flex-col items-center gap-10  '>
-        <h1 className=' font-playfair text-[120px] text-center leading-[120px] font-bold text-gray-800'>
-          Bring Your Ideas to Life
+    <section className='  flex flex-col w-full  max-container items-center mb-[10vh]  '>
+
+      <section className=' h-screen flex  mb-[4vh]' >
+      <WavyBackground 
+        colors={[ "#FFC764" ,"CDFFFC", "#A6D0DD", "#FF577F", "#A5DD9B"]}
+        backgroundFill='white'
+        >
+        <div className='my-auto max-w-2xl flex flex-col items-center gap-6 text-gray-900 '>
+        <h1 className=' font-playfair max-md:text-[20vw] lg:text-[120px] text-[100px] text-center max-md:leading-[18vw] leading-[100px] lg:leading-[120px] font-bold '>
+          Turn Words Into Images
         </h1>
+        <p className='max-md:text-[20px] max-md:leading-6 text-xl text-center max-md:mb-2 mb-6  '>
+          With The Help of Artificial Intelligence 
+        </p>
         <Link to='/create-post' >
           <Button 
-            fontSize={"text-2xl font-light"}
-            px={"px-20"}
-            py={"py-4"}
+            fontSize={"max-md:text-lg text-xl lg:text-2xl font-light"}
+            px={"max-md:px-10 px-20"}
+            py={" max-md:py-3 py-4"}
             label={"Create"} />
         </Link>
         </div>
+        </WavyBackground>
       </section>
 
-      <div className='w-full flex flex-row justify-evenly mb-60  '>
-      <h1 className=' text-2xl max-w-lg'>
-          Using Dall-E AI Model by OpenAI to create realistic images from descriptions
-        </h1>
+       
+  
+
+      <div className='flex flex-col max-md:items-center max-md:justify-center md:flex-row max-md:gap-4 gap-20 mb-60  '>
+      
         <div className='max-w-md flex flex-col justify-center items-center   p-4 pb-4  rounded-lg '> 
-          <img src={logo} alt="logo" className='w-40 object-cover '/>
-          <img src={dalle} alt="dalle" className='w-80 object-cover invert '/>
+          <img src={logo} alt="logo" className='max-md:w-28 w-40 object-cover '/>
+          <img src={dalle} alt="dalle" className='max-md:w-40 w-60 object-cover invert '/>
         </div>
         
-
+        <h1 className=' max-md:text-xl text-2xl max-w-lg max-md:text-center'>
+          Using Dall-E AI Model by OpenAI to create realistic images from descriptions
+        </h1>
        </div>
 
-       <div className='w-full flex flex-col mb-60 gap-20 '>
+       {/* <div className='w-full flex flex-col mb-60 gap-20 '>
         <h1 className='w-full font-inter leading-[60px] text-4xl font-semibold 
            max-w-xl  text-gray-800'>
           Differences between Dall-E 3 and Dall-E 2 Models
         </h1>
-        <p className='text-2xl font-semibold italic mb-10  '>
+        <p className='text-2xl font-semibold italic   '>
           Input: <span className='font-light'> Spongebob Squarepants in India</span>
         </p>
         
@@ -102,7 +124,7 @@ const Home = () => {
 
           <div className='w-1/2 flex flex-col  '>
    
-            <div className='flex flex-row mb-6'>
+            <div className='flex flex-row mb-6  rounded-lg overflow-clip'>
               <img src={dalle3_natural} alt="dalle3_natural" className=' object-cover '/>
             </div>
             <h1 className='text-xl font-semibold  max-w-lg'>
@@ -115,7 +137,7 @@ const Home = () => {
 
           <div className='w-1/2 flex flex-col '>
 
-          <div className='flex flex-row mb-6'>
+          <div className='flex flex-row mb-6 rounded-lg overflow-clip'>
             <img src={dalle2_natural} alt="dalle2_natural" className=' object-cover '/>
 
           </div>
@@ -129,53 +151,44 @@ const Home = () => {
         </div> 
 
   
-      </div>
+      </div> */}
 
       <div className='w-full flex flex-col '>
 
-        <h1 className='w-full font-inter text-2xl font-bold  text-gray-800'>
+        <h1 className='w-full font-inter text-2xl max-md:font-semibold max-md:leading-10 max-md:mb-4 font-bold  text-gray-800'>
           Look what the Community has been upto
         </h1>
-        <p className='text-lg mb-20  '>
-          A collection of Recent Posts from the Community
+        <p className='text-lg mb-10  '>
+          Recent Posts from the Community
         </p>
 
         {/* <div className='mb-10'>
           <FormField />
         </div> */}
 
-        <div className='text-xl font-inter'>
+        <div className='text-xl font-inter  '>
           {loading ?
           (
-            <div className='flex justify-center items-center'>
+            <div className='flex  justify-center items-center'>
               <Loader />
             </div>
           ):(
-            <>
-              {searchTerm && (
-                <h2 className='text-xl mb-20'>
-                  Search Results for "<span className='text-accent font-semibold text-xl '>
-                    {searchTerm}
-                  </span>"
-                </h2>
-              )}
+            <div className='w-full flex flex-col items-center gap-10'>
 
-              <div className='grid grid-cols-3 gap-4'>
-                {searchTerm ?
-                (
-                  <RenderPosts
-                    data={[]}
-                    title={'No Search Results Found'}
-                    />
-                ):(
+              <div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-4'>
+
                   <RenderPosts
                     data={posts || []}
                     title={'NO POSTS FOUND'}
                     />
-                )}
+              
               </div>
-            </>
+
+
+            </div>
           )}
+
+
         </div>
       </div>
       
