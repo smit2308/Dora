@@ -14,7 +14,7 @@ const app = express();
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*'); // Replace with your frontend URL
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
     if (req.method === 'OPTIONS') {
         return res.sendStatus(200); // Respond to preflight requests
     }
