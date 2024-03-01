@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router'
 import { preview } from '../assets'
 import {getRandomPrompt} from '../utils'
 import { FormField, Loader, Button, Dropdown } from '../componenets'
-import g from 'file-saver'
 import { modelOptions, qualityOptions, styleOptions  } from '../constants'
 import { downloadImage } from '../utils'
 
