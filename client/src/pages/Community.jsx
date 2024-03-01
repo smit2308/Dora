@@ -80,9 +80,9 @@ const Community = () => {
   };
 
   return (
-    <div className='w-full flex flex-col max-container mt-20 md:mt-32'>
+    <div className='w-full flex flex-col max-container mt-20 md:mt-32 text-gray-800 dark:text-white min-h-screen'>
 
-    <h1 className='font-playfair leading-[80px] text-6xl max-md:leading-[50px] max-md:text-4xl font-bold  text-gray-800 mb-10 max-md:mb-6'>
+    <h1 className='font-playfair leading-[80px] text-6xl max-md:leading-[50px] max-md:text-4xl font-bold   mb-10 max-md:mb-6'>
       Posts from the Community
     </h1>
     <p className='text-lg mb-10 max-md:text-md max-md:mb-4 '>
@@ -102,7 +102,7 @@ const Community = () => {
     <div className='text-xl font-inter'>
       {loading ?
       (
-        <div className='flex justify-center items-center'>
+        <div className='flex justify-center '>
           <Loader />
         </div>
       ):(

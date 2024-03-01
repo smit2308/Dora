@@ -6,7 +6,7 @@ import {getRandomPrompt} from '../utils'
 import { FormField, Loader, Button, Dropdown } from '../componenets'
 import g from 'file-saver'
 import { modelOptions, qualityOptions, styleOptions  } from '../constants'
-
+import { downloadImage } from '../utils'
 
 
 const CreatePost = () => {
@@ -42,15 +42,10 @@ const CreatePost = () => {
 
 
 
-  const Printer = () =>
-{
-  console.log('printer')
-  return null
 
-}
 
 const handleGenerate = async () => {
-  console.log(form, "form")
+
   if(form.prompt){
     try {
           setGeneratingImage(true);
@@ -121,7 +116,7 @@ const handleFormSubmit = async (e) => {
 }
 
 const handleChange = (e) => {
-  console.log(e.target.value, "target value")
+
   setForm({ ...form, [e.target.name]: e.target.value })
 
 }
@@ -138,16 +133,21 @@ const handleDropdown =(parameter, value) => {
 
 }
 
+const handleDownload = (e) => {
+  e.preventDefault();
+  downloadImage(form.prompt, form.image)
+}
+
 
 
 
   return (
-    <section className='w-full flex flex-col max-container  mt-20 md:mt-32'>
-      <h1 className=' font-playfair max-md:leading-[50px] max-md:text-4xl max-md:mb-6 leading-[80px] text-6xl font-bold mb-10  text-gray-800'>
+    <section className='w-full flex flex-col max-container  mt-20 md:mt-32 text-gray-900 dark:text-slate-100'>
+      <h1 className=' font-playfair max-md:leading-[50px] max-md:text-4xl max-md:mb-6 leading-[80px] text-6xl font-bold mb-10  '>
         Create a new Image
       </h1>
-      <p className='text-lg mb-10 max-md:text-md max-md:mb-6'>
-        Instantly Generate AI Masterpieces from Your Prompts - Share, Inspire, and Amaze!
+      <p className='text-lg mb-10 max-md:text-md max-md:mb-6 max-w-3xl'>
+        Enter the description of the image you want to generate in the prompt and click on Generate Image. You can also choose the model, quality and style of the image.
       </p>
       
       <form className='max-w-2xl' onSubmit={handleFormSubmit}>
@@ -208,11 +208,11 @@ const handleDropdown =(parameter, value) => {
           <Button
             width={"w-max"}
             label={`${generatingImage ? 'Generating Image...' : 'Generate Image'}`}
-            color={"bg-accent"}
+            color={"bg-accent text-white"}
             handleClick={handleGenerate}
           />
 
-          <div className='flex relative bg-gray-100 rounded-lg max-w-xl  '>
+          <div className='flex relative bg-gray-100 dark:bg-gray-800 rounded-lg max-w-xl  '>
             {form.image?
               (
                 <img src={form.image} alt={form.prompt}
@@ -220,7 +220,7 @@ const handleDropdown =(parameter, value) => {
                 />
               ):(
                 <img src={preview} alt='preview'
-                className='w-full h-full object-contain p-20 opacity-75'
+                className='w-full h-full object-contain p-20 opacity-75 dark:invert'
                 />
               )}
 
@@ -239,17 +239,22 @@ const handleDropdown =(parameter, value) => {
 
 
         <div className='mt-10'>
-          <p className='font-inter text-gray-900 text-lg'>You can download the image to your device or share the generated image in the community !</p>
+          <p className='font-inter  text-lg'>You can download the image to your device or share the generated image in the community !</p>
           <div className='flex gap-10 mt-10'>
+            <button
+                onClick={handleDownload}>
             <Button
               label={'Download'}
-              color={'bg-gray-800'}
-              onclick={() => g.saveAs(form.image, `Dora_"${form.prompt}".jpg`)}
+              color={'bg-gray-800 dark:bg-gray-100 dark:text-black text-white'}
+          
             />
+
+                </button>
+
             <Button
             type={'submit'}
               label={'Share'}
-              color={'bg-green-700'}
+              color={'bg-green-700   text-white'}
               
             />
           </div>  

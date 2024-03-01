@@ -1,9 +1,11 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import {Card, Loader, FormField, Button, WavyBackground} from '../componenets'
 import { Link } from 'react-router-dom'
 import { dalle, logo, 
   dalle2_natural, dalle2_vivid, dalle3_natural, dalle3_vivid } from '../assets'
+  import { ThemeContext } from '../App';
+
 
 const RenderPosts = ({ data, title }) => {
   if (data.length > 0 ) {
@@ -11,14 +13,7 @@ const RenderPosts = ({ data, title }) => {
       <Card key={post.id} {...post}/>
     ));
     
-    <Link to={'/community'} >
-    <Button 
-      color={"bg-gray-800"}
-      fontSize={"max-md:text-lg text-xl lg:text-2xl font-light"}
-      px={"max-md:px-10 px-20"}
-      py={" max-md:py-3 py-4"}
-      label={"View More"} />
-  </Link>
+
   
   } else {
     return (
@@ -33,51 +28,55 @@ const RenderPosts = ({ data, title }) => {
 
 const Home = () => {
 
+  const { isDark } = useContext(ThemeContext);
+
   const [posts, setPosts] = useState(null)
   const [loading, setLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
 
   const [isDalle3, setIsDalle3] = useState(false)
 
-  // useEffect(() => { 
-  //   const fetchPosts = async () => {
-  //     setLoading(true)
-  //     try {
-  //       const response = await fetch('http://localhost:8080/api/v1/post',
-  //       {
-  //         method: 'GET',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         }
-  //       })
 
-  //       if (response.ok) {
-          
-  //         const result = await response.json()
 
-  //         setPosts(result.data.reverse())
+  useEffect(() => { 
+    const fetchPosts = async () => {
+      setLoading(true)
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/post',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+
+        if (response.ok) {
           
-  //       }
+          const result = await response.json()
+
+          setPosts(result.data.reverse())
+          
+        }
 
         
-  //     } catch (error) {
-  //       alert(error)
-  //     } finally {
-  //       setLoading(false)
-  //     }
-  //   }
-  //   fetchPosts()
-  // }, [])
+      } catch (error) {
+        alert(error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchPosts()
+  }, [])
 
   return (
-    <section className='  flex flex-col w-full  max-container items-center mb-[10vh]  '>
+    <section className='  flex flex-col w-full  max-container items-center mb-[10vh] dark:bg-black bg-white  '>
 
-      <section className=' h-screen flex  mb-[4vh]' >
+      <section className=' h-screen flex  mb-[4vh] dark:text-white text-gray-900' >
       <WavyBackground 
         colors={[ "#FFC764" ,"CDFFFC", "#A6D0DD", "#FF577F", "#A5DD9B"]}
-        backgroundFill='white'
+       
         >
-        <div className='my-auto max-w-2xl flex flex-col items-center gap-6 text-gray-900 '>
+        <div className='my-auto max-w-2xl flex flex-col items-center gap-6 dar:text-white  '>
         <h1 className=' font-playfair max-md:text-[20vw] lg:text-[120px] text-[100px] text-center max-md:leading-[18vw] leading-[100px] lg:leading-[120px] font-bold '>
           Turn Words Into Images
         </h1>
@@ -98,11 +97,11 @@ const Home = () => {
        
   
 
-      <div className='flex flex-col max-md:items-center max-md:justify-center md:flex-row max-md:gap-4 gap-20 mb-60  '>
+      <div className=' dark:text-slate-100 text-gray-900 flex flex-col max-md:items-center max-md:justify-center md:flex-row max-md:gap-4 gap-20 mb-60  '>
       
         <div className='max-w-md flex flex-col justify-center items-center   p-4 pb-4  rounded-lg '> 
-          <img src={logo} alt="logo" className='max-md:w-28 w-40 object-cover '/>
-          <img src={dalle} alt="dalle" className='max-md:w-40 w-60 object-cover invert '/>
+          <img src={logo} alt="logo" className='max-md:w-28 w-40 object-cover dark:invert '/>
+          <img src={dalle} alt="dalle" className='max-md:w-40 w-60 object-cover invert dark:invert-0  '/>
         </div>
         
         <h1 className=' max-md:text-xl text-2xl max-w-lg max-md:text-center'>
@@ -153,9 +152,9 @@ const Home = () => {
   
       </div> */}
 
-      <div className='w-full flex flex-col '>
+      <div className='w-full flex flex-col dark:text-slate-100 text-gray-900'>
 
-        <h1 className='w-full font-inter text-2xl max-md:font-semibold max-md:leading-10 max-md:mb-4 font-bold  text-gray-800'>
+        <h1 className='w-full font-inter text-2xl max-md:font-semibold max-md:leading-10 max-md:mb-4 font-bold  '>
           Look what the Community has been upto
         </h1>
         <p className='text-lg mb-10  '>
@@ -181,10 +180,19 @@ const Home = () => {
                     data={posts || []}
                     title={'NO POSTS FOUND'}
                     />
+
+
               
               </div>
 
+              <Link to={'/community'} >
+              <Button 
+              width={'w-max'}
+                color={"bg-gray-800 dark:bg-gray-100 text-white dark:text-black"}
+                fontSize={"max-md:text-lg text-lg lg:text-xl "}
 
+                label={"View More"} />
+            </Link>
             </div>
           )}
 

@@ -1,7 +1,10 @@
 "use client";
 import { cn } from "../../utils/cn";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect,useState, useRef, useContext } from "react";
 import { createNoise3D } from "simplex-noise";
+import { ThemeContext } from '../App';
+
+
 
  const WavyBackground = ({
   children,
@@ -15,6 +18,11 @@ import { createNoise3D } from "simplex-noise";
   waveOpacity = 0.5,
   ...props
 }) => {
+
+  const { isDark } = useContext(ThemeContext);
+  
+
+
   const noise = createNoise3D();
   let w: number,
     h: number,
@@ -50,6 +58,8 @@ import { createNoise3D } from "simplex-noise";
     render();
   };
 
+ 
+
   const waveColors = colors ?? [
     "#38bdf8",
     "#818cf8",
@@ -73,20 +83,34 @@ import { createNoise3D } from "simplex-noise";
   };
 
   let animationId: number;
+
+  const isDarkModeEnabled = () => {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  };
+
   const render = () => {
-    ctx.fillStyle = backgroundFill || "white";
+
+
+
+    
+    ctx.fillStyle = backgroundFill || (isDark ? "#000" : "#fff")
     ctx.globalAlpha = waveOpacity || 0.5;
     ctx.fillRect(0, 0, w, h);
     drawWave(5);
     animationId = requestAnimationFrame(render);
   };
 
+  
+
   useEffect(() => {
     init();
     return () => {
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [isDark]);
+
+
+  
 
   return (
     <div

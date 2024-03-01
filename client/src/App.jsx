@@ -1,11 +1,11 @@
-import {React, useState, useRef, useEffect} from 'react'
+import {React, useState, useRef, useEffect, createContext} from 'react'
 import { BrowserRouter, Link, Route, Routes, NavLink } from 'react-router-dom'
 import {Dora_logo} from './assets'
 import { HiMenu } from "react-icons/hi";
 import {Home, CreatePost, Community} from './pages'
 import { Button } from './componenets'
 import {links} from './constants' 
-import { HiOutlineX } from "react-icons/hi";
+import { HiOutlineX, HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
 
 import {
   motion,
@@ -15,6 +15,8 @@ import {
   useIsPresent,
   useAnimation
 } from "framer-motion";
+
+export const ThemeContext = createContext();
 
 function App() {
 
@@ -56,18 +58,32 @@ function App() {
     setIsOverlayOpen(false)
   }
 
+
+
+  const [isDark, setisDark] = useState(true); 
+
+
+const toggleTheme = () => {
+  setisDark(!isDark)
+}
+
+
+
   return (
-    <section className='max-container flex flex-col  items-center '> 
+    <ThemeContext.Provider value={{ isDark }}>
+      <div className={`${isDark && 'dark'}`}>
+    <section className=' bg-white dark:bg-black w-full flex flex-col items-center   '> 
     <AnimatePresence mode="wait">
       <BrowserRouter>
-        <header className=' max-md:-mb-24 md:fixed z-30  md:backdrop-blur-xl max-container w-full flex justify-between  items-center
+
+        <header className=' max-md:-mb-24 md:fixed z-30  md:backdrop-blur-lg rounded-full max-container w-full flex justify-between  items-center
        lg:px-20 md:px-10 px-6 
           '>
-          <Link to='/' className='flex items-center w-max b'>
+          <Link to='/' className='flex items-center w-max -ml-3'>
             <img src={Dora_logo} alt="Dora" 
             className='max-md:w-20 max-md:h-20 w-32 h-32'
             />
-            <h1 className='h-max w-max  max-md:text-2xl text-4xl font-light font-playfair text-gray-800 -ml-2 '>
+            <h1 className='h-max w-max  max-md:text-2xl text-4xl font-light font-playfair  -ml-2 text-gray-900 dark:text-white '>
               Dora
             </h1>
             
@@ -75,12 +91,19 @@ function App() {
 
     
 
-          <div className='flex flex-row gap-10 max-md:hidden'>
+          <div className='flex flex-row gap-10 max-md:hidden items-center'>
+  
             {links.map(link => (
-              <NavLink to={link.path} key={link.name}  className={(navData) => (navData.isActive ? "text-accent text-xl" : 'text-xl text-gray-800 hover:text-accent')}>
+              <NavLink to={link.path} key={link.name}  className={(navData) => (navData.isActive ? "text-accent text-xl" : 'text-xl text-gray-800 dark:text-white hover:text-accent dark:hover:text-accent')}>
                 {link.name}
               </NavLink>
             ))}
+
+<button onClick={toggleTheme}>
+              {isDark ? (<HiOutlineSun  className='w-8 h-8 text-white'/>) : 
+              (<HiOutlineMoon  className='w-8 h-8 text-black'/>)}
+              
+            </button>
           </div>
 
           <button onClick={openOverlay} className='md:hidden'>
@@ -139,7 +162,7 @@ function App() {
 
         
 
-        <main className='max-container lg:px-20 md:px-10 px-6 py-10'>
+        <main className='max-container w-full lg:px-20 md:px-10 px-6 py-10'>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/community' element={<Community />} />
@@ -149,6 +172,8 @@ function App() {
       </BrowserRouter>
       </AnimatePresence>
     </section>
+    </div>
+    </ThemeContext.Provider>
    
   )
 }

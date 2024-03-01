@@ -48,6 +48,7 @@ const Card = ({_id, name, prompt, image}) => {
   const closeOverlay = () => {
     setIsOverlayOpen(false)
   }
+  
 
 
 

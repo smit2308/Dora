@@ -11,16 +11,16 @@ const FormField = ({label, type, name, placeholder, value,
 
       <label
         htmlFor={name}
-        className='font-inter text-lg  text-gray-800'
+        className='font-inter text-lg  text-gray-800 dark:text-slate-100'
       >
         {label}
       </label>
 
       {isSurpriseMe ? (
          <Button
-           color={"bg-gray-800"}
+           color={"bg-gray-800 dark:bg-gray-100 dark:text-black text-white"}
            label={"Surprise Me !"}
-           fontSize={"text-sm"}
+           fontSize={"text-sm dark:text-md"}
            rounded={"rounded-md"}
            handleClick={handleSurpriseMe}
           />
@@ -35,7 +35,7 @@ const FormField = ({label, type, name, placeholder, value,
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
-        className='w-full px-4 py-2 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent'
+        className='w-full px-4 py-2 bg-gray-100 dark:bg-gray-800  rounded-lg focus:outline-none focus:ring-2 focus:ring-accent'
       />
 
       

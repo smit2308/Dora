@@ -12,5 +12,12 @@ export function getRandomPrompt(prompt) {
 }
 
 export async function downloadImage(_id, image) {
-    FileSaver.saveAs(image, `download_${_id}.jpg`);
+
+    if (image) {
+        FileSaver.saveAs(image, `download_${_id}.jpg`);
+    }
+    else {
+        alert("No image to download");
+    }
+
 }
