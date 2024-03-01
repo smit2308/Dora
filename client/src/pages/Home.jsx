@@ -43,7 +43,7 @@ const Home = () => {
       setLoading(true)
       try {
         const response = await fetch('https://doraserver.vercel.app/api/v1/post',
-        {  mode: 'no-cors',
+        {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
