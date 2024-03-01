@@ -79,14 +79,14 @@ const Card = ({_id, name, prompt, image}) => {
       <div className='absolute group-hover:flex flex-col hidden 
       self-center
       lg:p-6 p-4 flex-wrap justify-between gap-6 lg:m-4 m-2 
-      bottom-0  bg-white bg-opacity-80 backdrop-blur-md  rounded-lg'>
-        <p className='text-sm  text-black text-left'>"{prompt}"</p>
+      bottom-0  bg-white bg-opacity-80 backdrop-blur-md  rounded-lg text-black dark:text-white dark:bg-gray-800'>
+        <p className='text-sm  text-left'>"{prompt}"</p>
 
         
                 <div className='w-full flex flex-row  justify-between gap-6 items-end'>
 
 
-              <div className={`text-sm  text-black  bg-[${alphabetColors[name[0].toUpperCase()]}]
+              <div className={`text-sm   bg-[${alphabetColors[name[0].toUpperCase()]}]
               flex  text-left  rounded-lg p-2 `}>
 {name
   .split(" ") // Split the name into words

@@ -107,7 +107,7 @@ const toggleTheme = () => {
           </div>
 
           <button onClick={openOverlay} className='md:hidden'>
-                <HiMenu className='h-8 w-8 text-gray-800' />
+                <HiMenu className='h-8 w-8 text-gray-800 dark:text-slate-100' />
               </button>
                    
         </header>
@@ -127,7 +127,7 @@ const toggleTheme = () => {
       initial={{ scaleX: '0%' }}
       animate={menuAnimation}
       style={{ originX: isPresent ? 1 : 0 }}
-      className='fixed h-screen w-[300px] text-secondary bg-primary 
+      className='fixed h-screen w-[300px] text-secondary bg-white dark:bg-gray-800
       shadow-image1 right-0 top-0 pt-24 pr-10 flex flex-col gap-10 rounded-b-lg lg:hidden shadow-nav 
       font-inter -mt-1 z-30 rounded-l-lg '
     >
@@ -144,7 +144,7 @@ const toggleTheme = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { duration: 0.4, ease: 'circOut', delay: index * 0.2 } }}
             exit={{ opacity: 0, transition: { duration: 0.2 } }}
-            className='w-full text-right text-xl text-gray-800 hover:text-accent'
+            className='w-full text-right text-xl text-gray-800 dark:text-slate-100 hover:text-accent'
           >
             <Link
               to={link.path}

@@ -12,7 +12,7 @@ const OverlayLayout = (
     img }
 ) => {
   return (
-    <div className='w-full flex  justify-between gap-6 '>
+    <div className='w-full flex max-md:flex-wrap  justify-between gap-6 '>
       <div className='flex flex-col    '>
         <h2 className='text-lg font-semibold text-gray-800 dark:text-slate-100'>
           {name}
