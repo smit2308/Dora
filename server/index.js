@@ -12,7 +12,7 @@ const app = express();
 // changes here
 // CORS configuration
 app.use((req, res, next) => {
-
+    console.log('Middleware executed:', req.method);
     res.setHeader('Access-Control-Allow-Origin', '*'); // Replace with your frontend URL
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
