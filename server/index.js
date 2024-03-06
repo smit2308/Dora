@@ -15,12 +15,13 @@ app.use(express.json({ limit: '50mb' }));
 app.use('/api/v1/post', postRoutes);
 app.use('/api/v1/dalle', dalleRoutes);
 
-app.get("/", async (req, res) => {
-    res.send("Hello from DALL-E Cloneaazzzzaaaa");
+app.use((req, res, next) => {
+    if (req.method === "OPTIONS") {
+      res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+      return res.status(200).json({});
+    }
+    next();
   });
-  
-  // Handle OPTIONS requests
-  app.options("*", cors()); 
 
 const startServer = async () => {
 
