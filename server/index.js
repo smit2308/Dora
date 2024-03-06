@@ -14,13 +14,13 @@ const app = express();
 app.use(express.json({ limit: '50mb' }));
 app.use('/api/v1/post', postRoutes);
 app.use('/api/v1/dalle', dalleRoutes);
-
+  // Handle OPTIONS requests for all routes
+  app.options("*", cors()); 
 app.get("/", async (req, res) => {
     res.send("Hello from DALL-E Cloneaazzzzaaaa");
   });
   
-  // Handle OPTIONS requests for all routes
-  app.options("*", cors()); 
+
 
 const startServer = async () => {
 
