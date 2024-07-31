@@ -48,7 +48,7 @@ const handleGenerate = async () => {
   if(form.prompt){
     try {
           setGeneratingImage(true);
-          const response = await fetch('https://dora-ylqx.onrender.com/api/v1/dalle', 
+          const response = await fetch('https://dora-server-g8bq.onrender.com/api/v1/dalle', 
           {
             method: 'POST',
             headers: {
@@ -87,7 +87,7 @@ const handleFormSubmit = async (e) => {
     setLoading(true)
     
     try {
-      const response = await fetch('https://dora-ylqx.onrender.com/api/v1/post', {
+      const response = await fetch('https://dora-server-g8bq.onrender.com/api/v1/post', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
