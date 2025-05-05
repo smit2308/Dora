@@ -30,8 +30,7 @@ router.route('/').post(async (req, res) => {
             style: style
           });
           
-        console.log(aiResponse.data[0].b64_json, "image data")
-        console.log(aiResponse.data[0].url, "image url")
+
         const image = aiResponse.data[0].b64_json;
         res.status(200).json({image: image});
     } catch (error) {
